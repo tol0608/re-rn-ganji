@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "887534384039",
+    "project_id": "rn-ganjicloset",
+    "storage_bucket": "rn-ganjicloset.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887534384039:android:9b0f59b7c0afde4e3bfc82",
+        "android_client_info": {
+          "package_name": "com.re_rn_ganji"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhTbLBCBa2XIIl3i3CwcbU6Kfzhf6uvHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
