@@ -1,6 +1,4 @@
-'use strict';
-exports.__esModule = true;
-var Colors = {
+const Colors = {
   defaultText: '#000000',
   defaultBg: '#ffffff',
   bgLightBlue: '#EFF2F5',
@@ -16,4 +14,5 @@ var Colors = {
   shoppingBg: '#EFF1F4',
   shoppingRed: '#f16a6d',
 };
-exports.default = Colors;
+
+export default Colors;

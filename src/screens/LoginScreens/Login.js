@@ -106,7 +106,7 @@ const Login = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
 
-      MyUtil._consoleLog(
+      console.log(
         'LoginContainer - 구글로그인 정보 : ' + JSON.stringify(userInfo.user),
       );
 
@@ -128,15 +128,15 @@ const Login = () => {
   }, []);
 
   const _kakaoLogin = useCallback(() => {
-    MyUtil._consoleLog('카카오 로그인 시작');
+    console.log('카카오 로그인 시작');
 
     KakaoLogins.login()
       .then(result => {
-        MyUtil._consoleLog('카카오 로그인 시작 222222');
+        console.log('카카오 로그인 시작 222222');
 
         KakaoLogins.getProfile(async (err, kakaoResult) => {
           if (err) {
-            return MyUtil._consoleLog('카카오 프로필 실패 !! - ', err);
+            return console.log('카카오 프로필 실패 !! - ', err);
           }
 
           // *** 간편 가입 체크 ~ 로그인/가입

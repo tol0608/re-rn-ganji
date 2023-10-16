@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, ReactElement} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,8 +11,16 @@ import Modal from 'react-native-modal';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-export default class ModalBottomLogin extends React.Component {
-  render() {
+interface ModalBottomLoginProps {
+  _modalCb: (open: boolean, data?: any) => void;
+  isModalOpen: boolean;
+  _setemail: (email: string) => void;
+  sendingemail: string;
+  _sendPwd: (email: string) => void;
+}
+
+export default class ModalBottomLogin extends Component<ModalBottomLoginProps> {
+  render(): ReactElement {
     const {_modalCb, isModalOpen, _setemail, sendingemail, _sendPwd} =
       this.props;
 
@@ -21,7 +29,7 @@ export default class ModalBottomLogin extends React.Component {
         testID={'modal'}
         isVisible={isModalOpen}
         swipeDirection={['down']}
-        onSwipeComplete={({swipingDirection}) => {
+        onSwipeComplete={() => {
           _modalCb(false, {});
         }}
         style={styles.view}

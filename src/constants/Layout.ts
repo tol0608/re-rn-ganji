@@ -1,7 +1,7 @@
 import {Dimensions, Platform} from 'react-native';
 
 const {width} = Dimensions.get('window');
-
+const height = Dimensions.get('window').height;
 const topBarHeight = 44;
 const bottomNaviHeight = 56;
 const mainBannerHeight = (width - 30) * (3 / 4);
@@ -11,6 +11,7 @@ const widthFix = width - 30;
 const baseFs = 8;
 const fsXXS = baseFs;
 const fsXS = baseFs + 2;
+// const fsXMS = baseFs + 3;
 const fsS = baseFs + 4;
 const fsSM = baseFs + 5;
 const fsM = baseFs + 6;
@@ -24,6 +25,7 @@ const fs8XL = baseFs + 24;
 const fs11XL = baseFs + 30;
 
 const fsFontNsR = Platform.OS === 'ios' ? 'NanumSquare' : 'NanumSquareRegular';
+// const fsFontNsB = Platform.OS === 'ios' ? ('NanumSquare') : ('NanumSquareBold')
 
 const GapLvI = (width * 1) / 2;
 const GapLvI2 = (width * 1) / 3;
@@ -38,9 +40,9 @@ const GapLvIX = (width * 1) / 18;
 const GapLvX = (width * 1) / 20;
 const GapLvXI = (width * 1) / 22;
 
-export const window = {
+const window = {
   width,
-  height: Dimensions.get('window').height,
+  height,
   topBarHeight,
   bottomNaviHeight,
   mainBannerHeight,
@@ -60,6 +62,7 @@ export const window = {
   GapLvXI,
 };
 
+// const fsXMS = fsXMS;
 export default {
   window,
   fsXXS,
@@ -76,4 +79,6 @@ export default {
   fs8XL,
   fs11XL,
   fsFontNsR,
+  // fsXMS,
+  // fsFontNsB
 };

@@ -94,11 +94,11 @@ function MainScreen() {
         ) {
           dispatch(allActions.setRxLoginInfo(result.DATA_RESULT)); // => 서버에서 내려준 유저 정보
         } else {
-          dispatch(allActions.logOut());
+          // dispatch(allActions.());
           MyAsyncStorage._writeAsyncStorage(Config.AS_KEY_LOGIN_INFO, null);
         }
       } else {
-        dispatch(allActions.logOut());
+        // dispatch(allActions.());
         MyAsyncStorage._writeAsyncStorage(Config.AS_KEY_LOGIN_INFO, null);
       }
 
@@ -750,64 +750,42 @@ function MainScreen() {
 
           {/* 상품 리스트 탭스택 */}
           <HomeScreenTabStack.Navigator
-            initialRouteName={od0Name}
-            initialLayout={Layout.window.width}
-            backBehavior="none"
-            //swipeEnabled='false'
-            //swipeVelocityImpact='0.0001'
-            lazy="true"
-            lazyPreloadDistance="0"
-            unmountOnBlur="true"
-            tabBarOptions={{
-              //탭바 안보이게함 => 탭바 새로 만들고 위쪽 드래그 되도록.
-              style: {height: '0%'},
-              //gestureEnabled: false,
-              allowFontScaling: false,
-              indicatorStyle: {backgroundColor: Colors.shoppingRed},
-              showIcon: true,
-              showLabel: false,
-              iconStyle: {justifyContent: 'center', alignItems: 'center'},
-              labelStyle: {
-                fontWeight: 'bold',
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-              //tabStyle: {  width: 'auto' },
-              tabStyle: {
-                fontWeight: 'bold',
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-              activeTintColor: Colors.shoppingRed,
-              inactiveTintColor: Colors.baseTextMidGray,
-            }}
             screenOptions={({route}) => ({
-              tabBarLabel: ({tintColor, focused, item}) => {
-                return focused ? (
+              tabBarLabel: ({focused}) => {
+                return (
                   <View style={{width: Layout.window.width}}>
                     <Text
                       numberOfLines={1}
                       style={{
                         fontWeight: 'bold',
                         fontSize: Layout.fsM,
-                        color: Colors.shoppingRed,
+                        color: focused
+                          ? Colors.shoppingRed
+                          : Colors.baseTextMidGray,
                       }}>
                       {route.name}
                     </Text>
                     {_setCurOdName(route.name)}
                   </View>
-                ) : (
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      fontWeight: 'bold',
-                      fontSize: Layout.fsM,
-                      color: Colors.baseTextMidGray,
-                    }}>
-                    {route.name}
-                  </Text>
                 );
               },
+              tabBarStyle: {height: 0}, // 탭바 숨김
+              tabBarActiveTintColor: Colors.shoppingRed,
+              tabBarInactiveTintColor: Colors.baseTextMidGray,
+              tabBarShowLabel: false, // 라벨 숨김
+              tabBarIconStyle: {justifyContent: 'center', alignItems: 'center'},
+              tabBarLabelStyle: {
+                fontWeight: 'bold',
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+              tabBarTabStyle: {
+                fontWeight: 'bold',
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+              tabBarIndicatorStyle: {backgroundColor: Colors.shoppingRed},
+              lazy: true,
             })}>
             <HomeScreenTabStack.Screen name={od0Name}>
               {props => (

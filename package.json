@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.3",
+    "@react-native-community/cli-doctor": "^11.3.8",
+    "@react-native-community/cli-platform-android": "^11.3.8",
     "@react-native-community/google-signin": "^5.0.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/push-notification-ios": "^1.11.0",
@@ -23,6 +25,7 @@
     "@react-navigation/stack": "^6.3.18",
     "axios": "^1.5.1",
     "deprecated-react-native-prop-types": "^4.2.3",
+    "npm-check-updates": "^16.14.6",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-daum-postcode": "^1.0.11",
