@@ -25,7 +25,6 @@ import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as ServerApi from '../../constants/ServerApi';
 import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
-import * as MyUtil from '../../constants/MyUtil';
 import Config from '../../constants/Config';
 import allActions from '../../components/redux/allActions';
 import ModalBottomLogin from '../../components/ModalBottomLogin';
@@ -61,33 +60,36 @@ const Login = () => {
     getResult();
   }, []);
 
-  const _sendPwd = useCallback(async sendingemail => {
-    if (sendingemail == '') {
-      Alert.alert('', '이메일을 입력해주세요');
-    } else if (sendingemail != '') {
-      if (reg_email.test(sendingemail)) {
-        const result = await ServerApi.m_apppwdemail(sendingemail);
-        if (
-          result.IS_SUCCESS === true &&
-          result.DATA_RESULT.rsp_code === '100'
-        ) {
-          Alert.alert('', '패스워드가 정상 발송 되었습니다.');
-        } else if (result.DATA_RESULT.rsp_code === '200') {
-          Alert.alert('', '존재하지 않는 이메일입니다.');
+  const _sendPwd = useCallback(
+    async sendingemail => {
+      if (sendingemail == '') {
+        Alert.alert('', '이메일을 입력해주세요');
+      } else if (sendingemail != '') {
+        if (reg_email.test(sendingemail)) {
+          const result = await ServerApi.m_apppwdemail(sendingemail);
+          if (
+            result.IS_SUCCESS === true &&
+            result.DATA_RESULT.rsp_code === '100'
+          ) {
+            Alert.alert('', '패스워드가 정상 발송 되었습니다.');
+          } else if (result.DATA_RESULT.rsp_code === '200') {
+            Alert.alert('', '존재하지 않는 이메일입니다.');
+          } else {
+            Alert.alert(
+              '',
+              '네트워크 환경이 불안정 합니다!\n_tabLogin:' +
+                result.DATA_RESULT.rsp_code,
+            );
+          }
         } else {
-          Alert.alert(
-            '',
-            '네트워크 환경이 불안정 합니다!\n_tabLogin:' +
-              result.DATA_RESULT.rsp_code,
-          );
+          Alert.alert('', '이메일을 입력해주세요');
         }
       } else {
-        Alert.alert('', '이메일을 입력해주세요');
+        Alert.alert('', '네트워크 환경이 불안정 합니다!');
       }
-    } else {
-      Alert.alert('', '네트워크 환경이 불안정 합니다!');
-    }
-  }, []);
+    },
+    [reg_email],
+  );
 
   const _googleLogin = useCallback(async () => {
     try {
@@ -125,7 +127,7 @@ const Login = () => {
         Alert.alert('Something went wrong', error.toString());
       }
     }
-  }, []);
+  }, [_easyCheck]);
 
   const _kakaoLogin = useCallback(() => {
     console.log('카카오 로그인 시작');
@@ -151,26 +153,29 @@ const Login = () => {
           Alert.alert('', `Login Failed:${err.code} ${err.message}`);
         }
       });
-  }, []);
+  }, [_easyCheck]);
 
-  const _easyCheck = useCallback(async (easyType, uniqKey) => {
-    const result = await ServerApi._appEasyCheck(easyType, uniqKey); // ** 간편 가입 체크 (100:미가입 , 200:기가입)
-    if (result.IS_SUCCESS === true && result.DATA_RESULT.rsp_code === '100') {
-      navigation.navigate('Join', {
-        easy_type: easyType,
-        uniq_key: uniqKey,
-        easy_yn: 'y',
-      });
-    } else if (result.DATA_RESULT.rsp_code == '200') {
-      _login('', '', 'y', easyType, uniqKey);
-    } else {
-      Alert.alert(
-        '',
-        '네트워크 환경이 불안정 합니다!\n_appEasyCheck:' +
-          result.DATA_RESULT.rsp_code,
-      );
-    }
-  }, []);
+  const _easyCheck = useCallback(
+    async (easyType, uniqKey) => {
+      const result = await ServerApi._appEasyCheck(easyType, uniqKey); // ** 간편 가입 체크 (100:미가입 , 200:기가입)
+      if (result.IS_SUCCESS === true && result.DATA_RESULT.rsp_code === '100') {
+        navigation.navigate('Join', {
+          easy_type: easyType,
+          uniq_key: uniqKey,
+          easy_yn: 'y',
+        });
+      } else if (result.DATA_RESULT.rsp_code == '200') {
+        _login('', '', 'y', easyType, uniqKey);
+      } else {
+        Alert.alert(
+          '',
+          '네트워크 환경이 불안정 합니다!\n_appEasyCheck:' +
+            result.DATA_RESULT.rsp_code,
+        );
+      }
+    },
+    [_login, navigation],
+  );
 
   const _login = useCallback(
     async (email, password, easyYn, easyType, uniqKey) => {
@@ -208,7 +213,7 @@ const Login = () => {
         );
       }
     },
-    [],
+    [dispatch, navigation],
   );
 
   const _modalCb = useCallback((isOk, jData) => {
@@ -275,8 +280,8 @@ const Login = () => {
                     <Image
                       source={require('../../img/Profile.png')}
                       style={{
-                        width: (Layout.window.width * 1) / 15,
-                        height: (Layout.window.width * 1) / 15,
+                        width: Layout.window.width / 15,
+                        height: Layout.window.width / 15,
                       }}
                       resizeMode="contain"
                     />
@@ -313,8 +318,8 @@ const Login = () => {
                     <Image
                       source={require('../../img/password.png')}
                       style={{
-                        width: (Layout.window.width * 1) / 13,
-                        height: (Layout.window.width * 1) / 13,
+                        width: Layout.window.width / 13,
+                        height: Layout.window.width / 13,
                       }}
                       resizeMode="contain"
                     />
@@ -470,7 +475,6 @@ const styles = StyleSheet.create({
     height: 48,
     backgroundColor: Colors.inputtextBg,
     color: 'black',
-    //color: Colors.defaultText,
     paddingLeft: 15,
     paddingRight: 15,
     borderColor: Colors.inputtextEmail,
@@ -481,14 +485,12 @@ const styles = StyleSheet.create({
     fontSize: Layout.fsM,
     marginTop: 40,
     color: 'black',
-    //color: Colors.baseTextGray,
     textDecorationLine: 'underline',
   },
   txtLogin: {
     fontSize: Layout.fsM,
     color: 'black',
     fontWeight: 'bold',
-    //color: Colors.baseTextGray,
     paddingTop: 10,
   },
   txtLoginInput: {

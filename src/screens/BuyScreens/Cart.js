@@ -53,8 +53,6 @@ const Cart = () => {
   const [handphone, setHandphone] = useState(false);
   const [myPoint, setMyPoint] = useState('');
 
-  const [totalPrice, setTotalPrice] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -129,7 +127,6 @@ const Cart = () => {
   // //상품 하나 삭제
   const _delHandler = useCallback(
     async order_temp_no => {
-      //let { arrCartList } = this.state;
       const result = await ServerApi.m_appordertempd(order_temp_no);
       if (result.IS_SUCCESS === true && result.DATA_RESULT.rsp_code === '100') {
         const itemToFind = cartArrData.find(function (item) {
@@ -285,85 +282,6 @@ const Cart = () => {
     },
     [dispatch, myPoint, navigation, totalAmount],
   );
-
-  // const _order = useCallback (async () => {
-  //     let order_no = ""
-  //     const { rxLoginInfo } = this.props;
-  //     const { arrCartList, amountSale, usePoint, coupon_no, coupon_point, coupon_no_delivery, coupon_delivery, onLineAmount, d_msg, amount, deliveryAmount } = this.state;
-  //     const orderData = {
-  //         u_id: rxLoginInfo.u_id,
-  //         point: String(usePoint),
-  //         coupon_no: String(coupon_no) === "" ? "-1" : String(coupon_no),
-  //         coupon_point: String(coupon_point),
-  //         coupon_delivery_no: String(coupon_no_delivery) === "" ? "-1" : String(coupon_no_delivery),
-  //         coupon_delivery_point: String(coupon_delivery) === "" ? "0" : String(coupon_delivery),
-  //         amount: String(amountSale),
-  //         d_msg: d_msg,
-  //         array: arrCartList
-  //     }
-  //     console.log("상품 주문 orderData : " + JSON.stringify(orderData))
-
-  //     if ((Number(amount) + Number(deliveryAmount)) < Number(usePoint)) {
-  //         return Alert.alert("", "주문 금액보다 많은 포인트를 사용할 수 없습니다! ")
-  //     }
-
-  //     if (Number(onLineAmount) > 0 && rxLoginInfo.add1 === "") {
-
-  //         Alert.alert("", "온라인 구매를 하시려면 정보관리에서 주소를 입력해주세요!")
-
-  //         const resetAction = StackActions.reset({ // 스택 초기화
-  //             index: 1,
-  //             actions: [
-  //                 NavigationActions.navigate({ routeName: 'Main', params: { isLogoTitle: true, isBackBtn: false, isStyle: "w", statusBarColor: '#ffffff' } }),
-  //                 NavigationActions.navigate({ routeName: 'Myinfo', params: { title: '정보 관리' } }),
-  //             ],
-  //         });
-  //         this.props.navigation.dispatch(resetAction);
-  //         return
-  //     }
-
-  //     const result = await ServerApi._appOrderI(orderData);
-  //     if (result.IS_SUCCESS === true && result.DATA_RESULT.rsp_code === "100") {
-  //         order_no = result.DATA_RESULT.order_no;
-
-  //         if (order_no !== "" && typeof (order_no) !== 'undefined') {
-
-  //             // 결제금액이 0원인경우 아임포트 연결 안함
-  //             if (Number(amountSale) === 0) {
-  //                 Alert.alert("", "결제가 정상적으로 완료되었습니다!")
-
-  //                 const resetAction = StackActions.reset({ // 스택 초기화
-  //                     index: 0,
-  //                     actions: [
-  //                         NavigationActions.navigate({ routeName: 'Main', params: { isLogoTitle: true, isBackBtn: false, isStyle: "w", statusBarColor: '#ffffff' } }),
-  //                     ],
-  //                 });
-  //                 this.props.navigation.dispatch(resetAction);
-  //             } else {
-  //                 ///// 아임포트 연결
-  //                 this.props.navigation.navigate({
-  //                     routeName: "Payment",
-  //                     params: {
-  //                         merchant_uid: order_no,
-  //                         amount: amountSale,
-  //                         buyer_name: rxLoginInfo.name,
-  //                         buyer_tel: rxLoginInfo.handphone,
-  //                         usePoint,
-  //                         coupon_no,
-  //                         coupon_no_delivery
-  //                     }
-  //                 });
-  //             }
-  //         } else {
-  //             Alert.alert("", "네트워크 환경이 불안정 합니다!\n_appOrderI: order_no 없음")
-  //         }
-  //     } else if (result.DATA_RESULT.rsp_code === "303") {
-  //         Alert.alert("", "사용 가능한 포인트가 부족합니다!")
-  //         // 로그인해서 정보갱신하기
-  //     } else {
-  //         Alert.alert("", "네트워크 환경이 불안정 합니다!\n_appOrderI:" + result.DATA_RESULT.rsp_code)
-  //     }
-  // }, [])
 
   const _modalCb = useCallback((isOk, jData) => {
     if (isOk) {
@@ -695,19 +613,16 @@ const styles = StyleSheet.create({
   txtInfo: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
     paddingTop: 10,
     marginLeft: 20,
   },
   txtTotal: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
   txtTotalPrice: {
     fontSize: Layout.fsXXXL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
   },
   txtInfoInput: {
@@ -731,7 +646,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   imgBuy: {
-    //position: 'absolute',
     width: Layout.window.GapLvI * 0.8,
     height: undefined,
     resizeMode: 'contain',

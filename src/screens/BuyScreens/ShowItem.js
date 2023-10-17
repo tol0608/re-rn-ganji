@@ -12,14 +12,12 @@ import {
   ScrollView,
   SafeAreaView,
   Linking,
-  FlatList,
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as MyUtil from '../../constants/MyUtil';
 import Carousel from 'react-native-snap-carousel-v4';
 import * as ServerApi from '../../constants/ServerApi';
-import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
 import Config from '../../constants/Config';
 
 import HTML from 'react-native-render-html';
@@ -29,7 +27,6 @@ import ModalBottomAddCart from '../../components/ModalBottomAddCart';
 import ModalBottomMainToLogin from '../../components/ModalBottomMainToLogin';
 import ModalItemOptionPick from '../../components/ModalItemOptionPick';
 import ReviewItem from '../../components/ReviewItem';
-import ScaledImage from '../../components/ScaledImage';
 
 const ShowItem = ({route}) => {
   const navigation = useNavigation();
@@ -40,16 +37,11 @@ const ShowItem = ({route}) => {
     },
   );
   const [loading, setLoading] = useState(true);
-  const [arrPicData, setArrPicData] = useState([]);
-  const [arrData, setarrData] = useState(false);
   const [kakaoUrl, setKakaoUrl] = useState('');
 
   const [arrDatadt, setarrDatadt] = useState(null);
   const [arrDataoption, setarrDataoption] = useState([]);
   const [arrDatafile, setarrDatafile] = useState([]);
-
-  // const [midImgW, setmidImgW] = useState(1060);
-  // const [midImgH, setmidImgH] = useState(6514 * Layout.window.width * 1 / midImgW);
 
   const [clickedbtn, setclickedbtn] = useState(false);
 
@@ -192,8 +184,8 @@ const ShowItem = ({route}) => {
   }, []);
 
   const modalPickOpen = useCallback(
-    (optionIdx, thisLeng) => {
-      setPickedOptionLength(thisLeng);
+    optionIdx => {
+      setPickedOptionLength('');
       setSelectOptionIdx(optionIdx);
       setArrSelectOption(arrDataoption[optionIdx]);
       setisModalOpntionPickOpen(true);
@@ -308,8 +300,6 @@ const ShowItem = ({route}) => {
         }
 
         if (option1picked == 1 && option2picked == 1 && option3picked == 1) {
-          //const optionCombination = arrDatadt.option1 + ":" + option1nm.option_nm + "," + arrDatadt.option2 + ":" + option2nm.option_nm + "," + arrDatadt.option3 + ":" + option3nm.option_nm;
-          //const totalPrice = (Number(arrDatadt.price) + Number(option1nm.option_price) + Number(option2nm.option_price) + Number(option3nm.option_price));
           const result = await ServerApi.m_appordertempi(
             String(rxLoginInfo.u_id),
             String(arrDatadt.good_no),
@@ -407,9 +397,6 @@ const ShowItem = ({route}) => {
         }
 
         if (option1picked == 1 && option2picked == 1 && option3picked == 1) {
-          //const optionCombination = arrDatadt.option1 + ":" + option1nm.option_nm + "," + arrDatadt.option2 + ":" + option2nm.option_nm + "," + arrDatadt.option3 + ":" + option3nm.option_nm;
-          //const totalPrice = (Number(arrDatadt.price) + Number(option1nm.option_price) + Number(option2nm.option_price) + Number(option3nm.option_price));
-
           const result = await ServerApi.m_appordertempi(
             String(rxLoginInfo.u_id),
             String(arrDatadt.good_no),
@@ -470,22 +457,21 @@ const ShowItem = ({route}) => {
       uri:
         Config.TITLEIMG_URL + item.file_nm + '?version=' + new Date().getTime(),
     };
-    // let imageUrl = item.anchor;
-    //if (imageUrl === "" || imageUrl === null || typeof (imageUrl) === 'undefined') { imageUrl = "" }
 
     return (
       <TouchableOpacity
-        style={{width: Layout.window.width, height: Layout.window.width}}
+        style={{width: Layout.window.width, height: Layout.window.height}}
         key={index}
         activeOpacity={1}
         onPress={() => {}}>
-        <View style={{width: Layout.window.width, height: Layout.window.width}}>
+        <View
+          style={{width: Layout.window.width, height: Layout.window.height}}>
           {/* <Image
                         style={{ width: Layout.window.width, height: Layout.window.width }}
                         source={imgSrc}
                         resizeMode='cover' /> */}
           <FastImage
-            style={{width: Layout.window.width, height: Layout.window.width}}
+            style={{width: Layout.window.width, height: Layout.window.height}}
             source={imgSrc}
             resizeMode={FastImage.resizeMode.cover}
           />
@@ -580,7 +566,7 @@ const ShowItem = ({route}) => {
                 <View
                   style={{
                     width: Layout.window.width,
-                    height: Layout.window.width,
+                    height: Layout.window.height,
                   }}>
                   {arrDatafile.length > 0 && (
                     <Carousel
@@ -609,8 +595,8 @@ const ShowItem = ({route}) => {
                     <Image
                       source={require('../../img/btn_floatingaction_kakao.png')}
                       style={{
-                        width: (Layout.window.width * 1) / 6,
-                        height: (Layout.window.width * 1) / 6,
+                        width: Layout.window.width / 6,
+                        height: Layout.window.width / 6,
                         marginRight: 15,
                       }}
                       resizeMode="cover"
@@ -839,12 +825,7 @@ const ShowItem = ({route}) => {
                 imagesMaxWidth={Layout.window.width - 20}
                 imagesInitialDimensions={{width: Layout.window.width - 20}}
                 renderers={{
-                  img: (
-                    htmlAttribs,
-                    children,
-                    convertedCSSStyles,
-                    passProps,
-                  ) => {
+                  img: htmlAttribs => {
                     return (
                       <FastImage
                         style={{
@@ -1045,19 +1026,16 @@ const styles = StyleSheet.create({
   txtShowItem: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
   txtShowOption: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
     textAlign: 'left',
   },
   txtTotalPrice: {
     textAlign: 'right',
     fontSize: Layout.fsXXXL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
   },
   txtShowItemBtn: {
@@ -1080,15 +1058,10 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   imgReviewStar: {
-    //flex: 1,
-    //position: 'absolute',
     width: Layout.window.GapLvXI * 0.9,
-    //height: Layout.window.GapLvXI*0.9,
-    //resizeMode: 'cover',
     aspectRatio: 1,
   },
   imgBuy: {
-    //position: 'absolute',
     width: Layout.window.GapLvI * 0.8,
     height: undefined,
     resizeMode: 'contain',
@@ -1096,7 +1069,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   imgCart: {
-    //position: 'absolute',
     width: Layout.window.GapLvI * 0.8,
     height: undefined,
     resizeMode: 'contain',

@@ -13,11 +13,8 @@ import {
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as ServerApi from '../../constants/ServerApi';
-import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
-import Config from '../../constants/Config';
 
 const Notification = ({route}) => {
-  const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [arrData, setarrData] = useState(false);
   const {notinum} = route.params;
@@ -72,8 +69,8 @@ const Notification = ({route}) => {
               <Image
                 source={require('../../img/read_cnt.png')}
                 style={{
-                  width: (Layout.window.width * 1) / 25,
-                  height: (Layout.window.width * 1) / 25,
+                  width: Layout.window.width / 25,
+                  height: Layout.window.width / 25,
                 }}
                 resizeMode="contain"
               />
@@ -109,23 +106,19 @@ const styles = StyleSheet.create({
   notiTitle: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
   },
   notiDate: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.grayLine2
   },
   notiContents: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextMidGray
   },
   scrollNotiList: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
 });
 

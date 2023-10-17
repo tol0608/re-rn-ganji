@@ -1,17 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Platform, Text, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
+import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-interface ModalBottomAlertDetailProps {
-  isModalOpen: boolean;
-  _modalCb: (open: boolean, data?: any) => void;
-  alertDate: string;
-  alertTittle: string;
-  alertDt: string;
-}
-
-export default class ModalBottomAlertDetail extends React.Component<ModalBottomAlertDetailProps> {
+export default class ModalBottomAlertDetail extends React.Component {
   render() {
     const {isModalOpen, _modalCb, alertDate, alertTittle, alertDt} = this.props;
 
@@ -19,8 +12,6 @@ export default class ModalBottomAlertDetail extends React.Component<ModalBottomA
       <Modal
         testID={'modal'}
         isVisible={isModalOpen}
-        //swipeDirection={['down']}
-        //onSwipeComplete={({ swipingDirection }) => { _modalCbSearch(false, {}) }}
         style={styles.view}
         backdropOpacity={0.3}
         onBackButtonPress={() => {
@@ -81,5 +72,27 @@ const styles = StyleSheet.create({
     margin: 0,
     alignItems: 'center',
     marginBottom: Platform.OS === 'ios' ? 35 : 5,
+  },
+  txtSearchInput: {
+    fontSize: Layout.fsM,
+    color: Colors.defaultText,
+    width: Layout.window.width * 0.7,
+    fontWeight: 'bold',
+  },
+  txtSearchGNM: {
+    fontSize: Layout.fsL,
+    color: Colors.defaultText,
+    marginBottom: 10,
+    fontWeight: 'bold',
+  },
+  txtSearchPrice: {
+    fontSize: Layout.fsM,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  imgSearch: {
+    width: Layout.window.GapLvII * 0.8,
+    height: Layout.window.GapLvII * 0.8,
+    aspectRatio: 1,
   },
 });

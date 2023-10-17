@@ -1,26 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import Loader from '../../components/Loader';
 import {
   StyleSheet,
   View,
   Text,
   Image,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
   SafeAreaView,
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as MyUtil from '../../constants/MyUtil';
-import * as ServerApi from '../../constants/ServerApi';
 import Config from '../../constants/Config';
 
 const Cart = ({item, _btnHandler, _delHandler, uid}) => {
-  const navigation = useNavigation();
-  const [loading, setLoading] = useState(true);
-  const [cartArrData, setCartArrData] = useState(false);
   const [cnt, setCnt] = useState(Number(item.good_ct));
 
   return (
@@ -42,10 +35,6 @@ const Cart = ({item, _btnHandler, _delHandler, uid}) => {
               }}
               resizeMode="cover"
             />
-            {/* <Image
-                            source={require('../../img/temp_circle.png')}
-                            style={{ width: Layout.window.GapLvII * 1.5 }}
-                            resizeMode="cover" /> */}
           </View>
         </View>
 
@@ -196,13 +185,11 @@ const styles = StyleSheet.create({
   txtItemName: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
   },
   txtTotal: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
 });
 

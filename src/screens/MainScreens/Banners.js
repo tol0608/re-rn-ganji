@@ -1,38 +1,8 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Alert,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Linking,
-  Animated,
-} from 'react-native';
-import {
-  useNavigation,
-  useRoute,
-  NavigationContainer,
-  CommonActions,
-} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {useSelector, useDispatch} from 'react-redux';
-import ModalBottomMainToLogin from '../../components/ModalBottomMainToLogin';
-import ModalBottomSearch from '../../components/ModalBottomSearch';
+import {View, Image, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel-v4';
-import Loader from '../../components/Loader';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
-import * as ServerApi from '../../constants/ServerApi';
-import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
-import * as MyUtil from '../../constants/MyUtil';
-import Config from '../../constants/Config';
-import allActions from '../../components/redux/allActions';
-import ProductList from '../MainScreens/ProductList';
-import SearchResult from './SearchResult';
 
 function MainScreen({
   od0Drag,
@@ -182,15 +152,5 @@ function MainScreen({
   }, []);
   return RefreshBanner();
 }
-
-const styles = StyleSheet.create({
-  floatingActionView: {
-    position: 'absolute',
-    right: 15,
-    bottom: 15,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-});
 
 export default MainScreen;

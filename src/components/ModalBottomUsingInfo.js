@@ -1,15 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Platform, Text, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
+import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-interface ModalBottomUsingInfoProps {
-  isModalOpen: boolean;
-  _modalCb: (open: boolean, data?: any) => void;
-  usingInfoData: string;
-}
-
-export default class ModalBottomUsingInfo extends React.Component<ModalBottomUsingInfoProps> {
+export default class ModalBottomUsingInfo extends React.Component {
   render() {
     const {isModalOpen, _modalCb, usingInfoData} = this.props;
 
@@ -29,7 +24,7 @@ export default class ModalBottomUsingInfo extends React.Component<ModalBottomUsi
           style={{
             marginTop: 100,
             width: Layout.window.width * 0.9,
-            height: Layout.window.width * 1,
+            height: Layout.window.height,
             borderRadius: 10,
             backgroundColor: '#ffffff',
             overflow: 'hidden',
@@ -53,7 +48,8 @@ export default class ModalBottomUsingInfo extends React.Component<ModalBottomUsi
 
           <ScrollView
             indicatorStyle={'black'}
-            style={{flex: 1, width: Layout.window.width * 0.9}}>
+            style={{flex: 1, width: Layout.window.width * 0.9}}
+            keyboardShouldPersistTaps="handled">
             <View style={{flex: 1, width: '90%', padding: 20}}>
               <Text
                 allowFontScaling={false}
@@ -74,5 +70,27 @@ const styles = StyleSheet.create({
     margin: 0,
     alignItems: 'center',
     marginBottom: Platform.OS === 'ios' ? 35 : 5,
+  },
+  txtSearchInput: {
+    fontSize: Layout.fsM,
+    color: Colors.defaultText,
+    width: Layout.window.width * 0.7,
+    fontWeight: 'bold',
+  },
+  txtSearchGNM: {
+    fontSize: Layout.fsL,
+    color: Colors.defaultText,
+    marginBottom: 10,
+    fontWeight: 'bold',
+  },
+  txtSearchPrice: {
+    fontSize: Layout.fsM,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  imgSearch: {
+    width: Layout.window.GapLvII * 0.8,
+    height: Layout.window.GapLvII * 0.8,
+    aspectRatio: 1,
   },
 });

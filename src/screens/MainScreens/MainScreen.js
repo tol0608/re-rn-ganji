@@ -165,14 +165,17 @@ function MainScreen() {
     }
   }, []);
 
-  const _modalCbToLogin = useCallback((isOk, jData) => {
-    setIsModalOpen(false);
+  const _modalCbToLogin = useCallback(
+    (isOk, jData) => {
+      setIsModalOpen(false);
 
-    if (isOk) {
-    } else {
-      navigation.navigate('Login');
-    }
-  }, []);
+      if (isOk) {
+      } else {
+        navigation.navigate('Login');
+      }
+    },
+    [navigation],
+  );
 
   const _modalCbSearch = useCallback((isOk, jData) => {
     setSearchResult(null);
@@ -195,28 +198,30 @@ function MainScreen() {
     [navigation],
   );
 
-  const _ShowSearchResult = useCallback(async good_nm => {
-    if (!MyUtil._isNull(good_nm)) {
-      const searchResult = await ServerApi._appGoodsSearch(good_nm);
-      if (
-        searchResult.IS_SUCCESS === true &&
-        searchResult.DATA_RESULT.rsp_code === '100'
-      ) {
-        //setSearchResult(searchResult.DATA_RESULT.array)
-        setCurOdName('searchResult');
-        navigation.navigate('searchResult', {
-          searchArr: searchResult.DATA_RESULT.array,
-        });
-        setIsSearchModalOpen(false);
-      } else {
-        Alert.alert(
-          '',
-          '네트워크 환경이 불안정 합니다!\n_tabLogin:' +
-            searchResult.DATA_RESULT.rsp_code,
-        );
+  const _ShowSearchResult = useCallback(
+    async good_nm => {
+      if (!MyUtil._isNull(good_nm)) {
+        const searchResult = await ServerApi._appGoodsSearch(good_nm);
+        if (
+          searchResult.IS_SUCCESS === true &&
+          searchResult.DATA_RESULT.rsp_code === '100'
+        ) {
+          setCurOdName('searchResult');
+          navigation.navigate('searchResult', {
+            searchArr: searchResult.DATA_RESULT.array,
+          });
+          setIsSearchModalOpen(false);
+        } else {
+          Alert.alert(
+            '',
+            '네트워크 환경이 불안정 합니다!\n_tabLogin:' +
+              searchResult.DATA_RESULT.rsp_code,
+          );
+        }
       }
-    }
-  }, []);
+    },
+    [navigation],
+  );
 
   const _setSearchTxt = useCallback(txt => {
     setSearchTxt(txt);
@@ -275,7 +280,7 @@ function MainScreen() {
 
       navigation.navigate(od0Name), setCurOdName(od0Name);
     },
-    [],
+    [navigation],
   );
 
   const RefreshTabs = useCallback(
@@ -596,7 +601,7 @@ function MainScreen() {
         </View>
       );
     },
-    [curOdName],
+    [navigation],
   );
 
   return (

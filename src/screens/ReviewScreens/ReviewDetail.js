@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import Loader from '../../components/Loader';
 import {
   StyleSheet,
@@ -9,7 +9,6 @@ import {
   Alert,
   ScrollView,
   SafeAreaView,
-  ImageBackground,
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
@@ -17,12 +16,7 @@ import * as ServerApi from '../../constants/ServerApi';
 import * as MyUtil from '../../constants/MyUtil';
 import Config from '../../constants/Config';
 
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { actionCreators } from "../components/redux/reducer";
-
 const ReviewDetail = () => {
-  const navigation = useNavigation();
   const route = useRoute();
   const [loading, setLoading] = useState(true);
   const [reviewNo, setReviewNo] = useState(route.params.review_no);
@@ -33,7 +27,7 @@ const ReviewDetail = () => {
       m_app_review_dt();
     }
     fetchData();
-  }, []);
+  }, [m_app_review_dt]);
 
   const m_app_review_dt = useCallback(async () => {
     const result = await ServerApi.m_app_review_dt(reviewNo);
@@ -207,48 +201,35 @@ const styles = StyleSheet.create({
   rewViewId: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
     marginLeft: 8,
   },
   notiDate: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.grayLine2
   },
   reviewTitle: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
     paddingBottom: 8,
   },
   reviewContents: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
   scrollNotiList: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
   imgReviewStar: {
-    //flex: 1,
-    //position: 'absolute',
     width: Layout.window.GapLvXI * 0.9,
-    //height: Layout.window.GapLvXI*0.9,
-    //resizeMode: 'cover',
     aspectRatio: 1,
   },
   imgReviewImgs: {
     marginRight: Layout.window.GapLvXI * 0.6,
-    //flex: 1,
-    //position: 'absolute',
     width: Layout.window.GapLvIV,
     height: Layout.window.GapLvIV,
-    //height: Layout.window.GapLvXI*0.9,
-    //resizeMode: 'cover',
     aspectRatio: 1,
   },
 });

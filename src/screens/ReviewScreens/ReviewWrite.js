@@ -18,10 +18,8 @@ import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as MyUtil from '../../constants/MyUtil';
 import * as ServerApi from '../../constants/ServerApi';
-import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
 import Config from '../../constants/Config';
 import ImagePicker from 'react-native-image-crop-picker';
-import {greaterThan} from 'react-native-reanimated';
 import {TextInput} from 'react-native-gesture-handler';
 
 const ReviewWrite = ({route}) => {
@@ -33,7 +31,6 @@ const ReviewWrite = ({route}) => {
     },
   );
   const [loading, setLoading] = useState(false);
-  const [arrData, setArrData] = useState([]);
 
   const {goodnm, optionnm, ordertempno, filenm} = route.params; //goodnm: array2item.good_nm, optionnm:option_nm, ordertempno: array2item.order_temp_no
 
@@ -112,7 +109,7 @@ const ReviewWrite = ({route}) => {
         </TouchableWithoutFeedback>
       </View>
     );
-  }, [curStartNum]);
+  }, [ShowReviewStar, curStartNum]);
 
   const _imageSelect = useCallback(async pickorder => {
     ImagePicker.openPicker({
@@ -245,7 +242,7 @@ const ReviewWrite = ({route}) => {
         );
       }
     },
-    [],
+    [navigation, ordertempno],
   );
 
   return (

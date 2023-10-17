@@ -1,37 +1,18 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
-  Button,
   Text,
   View,
-  Image,
   SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
   Alert,
-  ImageBackground,
-  Linking,
   FlatList,
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as ServerApi from '../../constants/ServerApi';
-import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
-import Config from '../../constants/Config';
 import Loader from '../../components/Loader';
 import * as MyUtil from '../../constants/MyUtil';
-import HTML from 'react-native-render-html';
-import {
-  NavigationContainer,
-  useNavigation,
-  useRoute,
-  useIsFocused,
-  CommonActions,
-} from '@react-navigation/native';
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import ModalBottomUsingInfo from '../../components/ModalBottomUsingInfo';
 import ProductItem from '../../components/ProductItem';
 
@@ -47,9 +28,6 @@ const ProductList = ({_setOdDrag}) => {
   const [isDragging, setIsDragging] = useState(0);
 
   const route = useRoute();
-
-  const [isUsingInfoModalOpen, setIsUsingInfoModalOpen] = useState(false);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     async function fetchData() {
@@ -88,7 +66,7 @@ const ProductList = ({_setOdDrag}) => {
       }
     }
     fetchData();
-  }, []);
+  }, [_m_appgoods, getUsingInfo, route.name]);
 
   const _modalCb = useCallback((isOk, jData) => {
     if (isOk) {
@@ -139,9 +117,12 @@ const ProductList = ({_setOdDrag}) => {
     [rowNo, arrData],
   );
 
-  const _setOdDragg = useCallback((y, odName) => {
-    _setOdDrag(y, odName);
-  }, []);
+  const _setOdDragg = useCallback(
+    (y, odName) => {
+      _setOdDrag(y, odName);
+    },
+    [_setOdDrag],
+  );
 
   return (
     <SafeAreaView
@@ -263,14 +244,12 @@ const styles = StyleSheet.create({
   txtProductName: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
     marginLeft: 10,
     marginTop: 2,
   },
   txtProductPrice: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
     marginLeft: 10,
     marginTop: 2,
@@ -290,7 +269,7 @@ const styles = StyleSheet.create({
   },
   GridView: {
     width: Layout.window.GapLvI * 0.9,
-    height: Layout.window.GapLvI * 1,
+    height: Layout.window.GapLvI,
     margin: Layout.window.GapLvI * 0.048,
     borderRadius: 15,
     backgroundColor: 'white',
@@ -298,11 +277,8 @@ const styles = StyleSheet.create({
   },
   imgInGridView: {
     flex: 1,
-    //position: 'absolute',
     width: '100%',
-    //height: undefined,
     resizeMode: 'contain',
-    //aspectRatio: 1,
   },
   PagingNumView: {
     height: Layout.window.GapLvV,

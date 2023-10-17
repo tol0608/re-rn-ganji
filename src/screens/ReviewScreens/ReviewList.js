@@ -6,7 +6,6 @@ import {
   View,
   Text,
   Alert,
-  ScrollView,
   SafeAreaView,
   FlatList,
 } from 'react-native';
@@ -94,37 +93,5 @@ const ReviewList = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  notiTitle: {
-    fontSize: Layout.fsL,
-    color: 'black',
-    //color: Colors.baseTextGray,
-    fontWeight: 'bold',
-  },
-  notiDate: {
-    fontSize: Layout.fsM,
-    color: 'black',
-    //color: Colors.grayLine2
-  },
-  scrollNotiList: {
-    fontSize: Layout.fsM,
-    color: 'black',
-    //color: Colors.baseTextGray,
-  },
-  reviewContents: {
-    fontSize: Layout.fsM,
-    color: 'black',
-    //color: Colors.baseTextMidGray,
-  },
-  imgReviewStar: {
-    //flex: 1,
-    //position: 'absolute',
-    width: Layout.window.GapLvXI * 0.9,
-    //height: Layout.window.GapLvXI*0.9,
-    //resizeMode: 'cover',
-    aspectRatio: 1,
-  },
-});
 
 export default ReviewList;

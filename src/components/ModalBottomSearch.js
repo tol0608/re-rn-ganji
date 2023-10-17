@@ -11,17 +11,7 @@ import Modal from 'react-native-modal';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-interface ModalBottomSearchProps {
-  isSearchModalOpen: boolean;
-  _modalCbSearch: (open: boolean, data?: any) => void;
-  _SearchResultChoose: (name: string, id: string) => void;
-  _ShowSearchResult: (searchText: string) => void;
-  searchResult: any[]; // Modify the type as per your data structure
-  _searchTxt: string;
-  _setSearchTxt: (text: string) => void;
-}
-
-export default class ModalBottomSearch extends React.Component<ModalBottomSearchProps> {
+export default class ModalBottomSearch extends React.Component {
   render() {
     const {
       isSearchModalOpen,
@@ -75,14 +65,13 @@ export default class ModalBottomSearch extends React.Component<ModalBottomSearch
                 autoCapitalize="none"
                 placeholder={'검색어를 입력해주세요'}
                 onChangeText={text => _setSearchTxt(text)}
-                value={_searchTxt}
               />
               <TouchableOpacity
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: (Layout.window.width * 1) / 9,
-                  height: (Layout.window.width * 1) / 9,
+                  width: Layout.window.width / 9,
+                  height: Layout.window.width / 9,
                 }}
                 onPress={() => {
                   _ShowSearchResult(_searchTxt);
@@ -90,8 +79,8 @@ export default class ModalBottomSearch extends React.Component<ModalBottomSearch
                 <Image
                   source={require('../img/Search.png')}
                   style={{
-                    width: (Layout.window.width * 1) / 16,
-                    height: (Layout.window.width * 1) / 16,
+                    width: Layout.window.width / 16,
+                    height: Layout.window.width / 16,
                   }}
                   resizeMode="contain"
                 />
@@ -116,5 +105,21 @@ const styles = StyleSheet.create({
     color: Colors.defaultText,
     width: Layout.window.width * 0.7,
     fontWeight: 'bold',
+  },
+  txtSearchGNM: {
+    fontSize: Layout.fsL,
+    color: Colors.defaultText,
+    marginBottom: 10,
+    fontWeight: 'bold',
+  },
+  txtSearchPrice: {
+    fontSize: Layout.fsM,
+    color: Colors.baseTextGray,
+    fontWeight: 'bold',
+  },
+  imgSearch: {
+    width: Layout.window.GapLvII * 0.8,
+    height: Layout.window.GapLvII * 0.8,
+    aspectRatio: 1,
   },
 });

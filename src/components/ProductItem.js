@@ -5,16 +5,6 @@ import Config from '../constants/Config';
 import * as MyUtil from '../constants/MyUtil';
 import FastImage from 'react-native-fast-image';
 
-interface ProductItemProps {
-  item: {
-    good_no: string;
-    good_nm: string;
-    price: number;
-    file_nm: string;
-  };
-  navigation: any;
-}
-
 const styles = StyleSheet.create({
   GridView: {
     width: Layout.window.GapLvI2 * 0.9,
@@ -44,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ProductItem: React.FC<ProductItemProps> = ({item, navigation}) => (
+export default ({item, navigation}) => (
   <TouchableOpacity
     style={styles.GridView}
     onPress={() => {
@@ -86,5 +76,3 @@ const ProductItem: React.FC<ProductItemProps> = ({item, navigation}) => (
     </View>
   </TouchableOpacity>
 );
-
-export default ProductItem;

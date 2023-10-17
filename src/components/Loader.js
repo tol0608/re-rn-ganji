@@ -9,10 +9,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoadingScreen: React.FC = () => (
-  <View style={styles.container}>
+export default () => (
+  <View styles={styles.container}>
     <ActivityIndicator color="#0000ff" />
   </View>
 );
-
-export default LoadingScreen;

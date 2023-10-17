@@ -5,14 +5,14 @@ import {Alert, Platform, StatusBar} from 'react-native';
 import Config from './Config';
 import * as MyUtil from './MyUtil';
 
-export let fcmSentTime: Date;
+// export let fcmSentTime: Date;
 
 interface ApiResponse {
   IS_SUCCESS: boolean;
   DATA_RESULT: any;
 }
 
-export async function _getAsyncStorage(key: string): Promise<any | null> {
+export async function _getAsyncStorage(key: string): Promise<ApiResponse> {
   MyUtil._consoleLog(
     `################ >>>>>> _getAsyncStorage () 요청 - key : ${key}`,
   );
@@ -122,11 +122,6 @@ export async function _httpReq(methodName: string, data: any) {
       DATA_RESULT: error,
     };
   }
-}
-
-interface ApiResponse {
-  IS_SUCCESS: boolean;
-  DATA_RESULT: any;
 }
 
 export async function _httpGetReq(reqURL: string): Promise<ApiResponse> {
@@ -346,7 +341,7 @@ export async function _appLogin(
       token = '';
     }
   } catch (error) {
-    // Alert.alert("", "알림이 거부된 상태입니다!\n설정에서 알림을 허용해주세요!");
+    Alert.alert('', '알림이 거부된 상태입니다!\n설정에서 알림을 허용해주세요!');
   }
   const data = {
     token,
@@ -405,7 +400,7 @@ export async function _appemailcheck(email: string): Promise<ApiResponse> {
 
 export async function _appJoin(
   name: string,
-  handphone: string,
+  handphone: number,
   easy_type: string,
   uniq_key: string,
   email: string,

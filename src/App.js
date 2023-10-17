@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
 import {Platform, StatusBar} from 'react-native';
 import messaging from '@react-native-firebase/messaging';

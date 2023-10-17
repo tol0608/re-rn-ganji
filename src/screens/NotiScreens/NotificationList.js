@@ -15,11 +15,6 @@ import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as ServerApi from '../../constants/ServerApi';
 import * as MyUtil from '../../constants/MyUtil';
-import Config from '../../constants/Config';
-
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { actionCreators } from "../components/redux/reducer";
 
 const NotificationList = () => {
   const navigation = useNavigation();
@@ -34,7 +29,7 @@ const NotificationList = () => {
     }
 
     fetchData();
-  }, []);
+  }, [_appNoti]);
 
   const _appNoti = useCallback(async () => {
     setLoadingFlag(true);
@@ -114,8 +109,8 @@ const NotificationList = () => {
                           <Image
                             source={require('../../img/circle_check.png')}
                             style={{
-                              width: (Layout.window.width * 1) / 25,
-                              height: (Layout.window.width * 1) / 25,
+                              width: Layout.window.width / 25,
+                              height: Layout.window.width / 25,
                               marginTop: 2,
                               marginRight: 5,
                             }}
@@ -148,8 +143,8 @@ const NotificationList = () => {
                           <Image
                             source={require('../../img/read_cnt.png')}
                             style={{
-                              width: (Layout.window.width * 1) / 25,
-                              height: (Layout.window.width * 1) / 25,
+                              width: Layout.window.width / 25,
+                              height: Layout.window.height / 25,
                             }}
                             resizeMode="contain"
                           />
@@ -190,35 +185,16 @@ const styles = StyleSheet.create({
   notiTitle: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
   },
   notiDate: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.grayLine2
   },
   scrollNotiList: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
 });
 
-// // redux 연결 부분
-// function mapStateToProps(state) {
-//     const { rxLoginInfo } = state;
-//     return {
-//         rxLoginInfo,
-//     };
-// }
-
-// // redux 정보 저장 부분
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         setRxLoginInfo: bindActionCreators(actionCreators.setRxLoginInfo, dispatch),
-//     }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Login);
 export default NotificationList;

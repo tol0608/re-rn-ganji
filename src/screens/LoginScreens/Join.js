@@ -61,15 +61,6 @@ const Join = () => {
         setidchkConfirm(300);
       }
     }
-    // } else {
-    //     if (email == '') {
-    //         Alert.alert("", "아이디를 입력해주세요.")
-    //         setidchkConfirm(300)
-    //     }else{
-    //         Alert.alert("", "아이디는 영문/숫자로 입력해주세요.")
-    //         setidchkConfirm(400)
-    //     }
-    // }
   }, []);
 
   const JoinEmailProcess = useCallback(
@@ -361,7 +352,6 @@ const styles = StyleSheet.create({
     fontSize: Layout.fsM,
     color: 'black',
     fontWeight: 'bold',
-    //color: Colors.baseTextGray,
     paddingTop: 10,
     marginLeft: 20,
   },

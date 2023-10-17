@@ -247,11 +247,7 @@ export function _toThousandsCommas(num: number | null | undefined): string {
 }
 
 export function _isNull(obj: any) {
-  if (obj === null || obj === undefined || obj === '' || obj === '0.0') {
-    return true;
-  } else {
-    return false;
-  }
+  return obj === null || obj === undefined || obj === '' || obj === '0.0';
 }
 
 export function _isUndefined(obj: any) {

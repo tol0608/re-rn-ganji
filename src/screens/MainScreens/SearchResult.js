@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   Button,
@@ -15,24 +15,9 @@ import {
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as ServerApi from '../../constants/ServerApi';
-import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
-import Config from '../../constants/Config';
 import Loader from '../../components/Loader';
-import * as MyUtil from '../../constants/MyUtil';
-import HTML from 'react-native-render-html';
-import {
-  NavigationContainer,
-  useNavigation,
-  useRoute,
-  useIsFocused,
-} from '@react-navigation/native';
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
-import MainScreen from '../MainScreens/MainScreen';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import ModalBottomUsingInfo from '../../components/ModalBottomUsingInfo';
-import FastImage from 'react-native-fast-image';
 import ProductItem from '../../components/ProductItem';
 
 const SearchResult = ({curOdName, _setCurOdName, searchArr}) => {
@@ -42,9 +27,6 @@ const SearchResult = ({curOdName, _setCurOdName, searchArr}) => {
   const [usingInfoData, setUsingInfoData] = useState(false);
   const [arrData, setArrData] = useState([]);
   const route = useRoute();
-
-  const [isUsingInfoModalOpen, setIsUsingInfoModalOpen] = useState(false);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     async function fetchData() {
@@ -56,7 +38,7 @@ const SearchResult = ({curOdName, _setCurOdName, searchArr}) => {
     if (route.params?.searchArr) {
       fetchData();
     }
-  }, [route.params?.searchArr]);
+  }, [getUsingInfo, route.params?.searchArr]);
 
   const _modalCb = useCallback((isOk, jData) => {
     if (isOk) {
@@ -107,30 +89,6 @@ const SearchResult = ({curOdName, _setCurOdName, searchArr}) => {
               {arrData.length > 0 ? (
                 arrData.map((item, idx) => (
                   <ProductItem key={idx} item={item} navigation={navigation} />
-                  // <View key={idx} style={styles.GridView}>
-                  //     <TouchableOpacity style={{ flex: 1 }}
-                  //         onPress={() => { navigation.navigate('ShowItem', { name: item.good_nm, goodnum: item.good_no, fromPage: "MainScreen" }) }}>
-                  //         <View style={{ flex: 7.5, width: '100%', alignItems: 'center', justifyContent: "flex-start" }}>
-                  //             <FastImage
-                  //                 style={styles.imgInGridView}
-                  //                 source={{
-                  //                     uri: Config.TITLEIMG_URL + item.file_nm,
-                  //                     priority: FastImage.priority.high,
-                  //                 }}
-                  //                 resizeMode={FastImage.resizeMode.cover}
-                  //             />
-                  //         </View>
-
-                  //         <View style={{ flex: 2.5, justifyContent: "center", alignItems: 'flex-start', backgroundColor: 'white' }}>
-                  //             <View style={{ flex: 1, }}>
-                  //                 <Text numberOfLines={1} style={styles.txtProductName}>{item.good_nm}</Text>
-                  //             </View>
-                  //             <View style={{ flex: 1, marginBottom: Layout.window.width * 9 / 350 }}>
-                  //                 <Text style={styles.txtProductPrice}>{MyUtil._toThousandsCommas(item.price)} 원</Text>
-                  //             </View>
-                  //         </View>
-                  //     </TouchableOpacity>
-                  // </View>
                 ))
               ) : (
                 <View
@@ -247,14 +205,12 @@ const styles = StyleSheet.create({
   txtProductName: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
     marginLeft: 10,
     marginTop: 2,
   },
   txtProductPrice: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
     marginLeft: 10,
     marginTop: 2,
@@ -272,7 +228,7 @@ const styles = StyleSheet.create({
   },
   GridView: {
     width: Layout.window.GapLvI * 0.9,
-    height: Layout.window.GapLvI * 1,
+    height: Layout.window.GapLvI,
     margin: Layout.window.GapLvI * 0.048,
     borderRadius: 15,
     backgroundColor: 'white',

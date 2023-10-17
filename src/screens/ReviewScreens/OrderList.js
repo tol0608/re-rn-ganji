@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   useNavigation,
   useRoute,
@@ -23,7 +23,6 @@ import Layout from '../../constants/Layout';
 import * as MyUtil from '../../constants/MyUtil';
 
 import * as ServerApi from '../../constants/ServerApi';
-import * as MyAsyncStorage from '../../constants/MyAsyncStorage';
 import Config from '../../constants/Config';
 
 const OrderList = () => {
@@ -65,7 +64,7 @@ const OrderList = () => {
       setLoading(true);
       fetchData();
     }
-  }, [route.params?.writtenNo]);
+  }, [navigation, route.params?.writtenNo, rxLoginInfo.u_id]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -79,7 +78,7 @@ const OrderList = () => {
       BackHandler.addEventListener('hardwareBackPress', onBackPress);
       return () =>
         BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-    }, []),
+    }, [navigation, rxLoginInfo]),
   );
 
   return (

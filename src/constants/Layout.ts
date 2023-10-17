@@ -27,18 +27,18 @@ const fs11XL = baseFs + 30;
 const fsFontNsR = Platform.OS === 'ios' ? 'NanumSquare' : 'NanumSquareRegular';
 // const fsFontNsB = Platform.OS === 'ios' ? ('NanumSquare') : ('NanumSquareBold')
 
-const GapLvI = (width * 1) / 2;
-const GapLvI2 = (width * 1) / 3;
-const GapLvII = (width * 1) / 4;
-const GapLvIII = (width * 1) / 6;
-const GapLvIV = (width * 1) / 8;
-const GapLvV = (width * 1) / 10;
-const GapLvVI = (width * 1) / 12;
-const GapLvVII = (width * 1) / 14;
-const GapLvVIII = (width * 1) / 16;
-const GapLvIX = (width * 1) / 18;
-const GapLvX = (width * 1) / 20;
-const GapLvXI = (width * 1) / 22;
+const GapLvI = width / 2;
+const GapLvI2 = width / 3;
+const GapLvII = width / 4;
+const GapLvIII = width / 6;
+const GapLvIV = width / 8;
+const GapLvV = width / 10;
+const GapLvVI = width / 12;
+const GapLvVII = width / 14;
+const GapLvVIII = width / 16;
+const GapLvIX = width / 18;
+const GapLvX = width / 20;
+const GapLvXI = width / 22;
 
 const window = {
   width,

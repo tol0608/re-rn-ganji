@@ -1,17 +1,18 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
+import Loader from '../../components/Loader';
 import {
-  Alert,
   StyleSheet,
   View,
   Text,
-  // Image,
+  Image,
+  Alert,
+  ImageBackground,
   TextInput,
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  ImageBackground,
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
@@ -22,46 +23,44 @@ import * as MyUtil from '../../constants/MyUtil';
 import Config from '../../constants/Config';
 
 import PostCodeDialog from '../../components/PostCodeDialogAddr';
-// import useFetch from '../../components/useFetch';
-import Loader from '../../components/Loader';
+import useFetch from '../../components/useFetch';
 
-interface UserInfoProps {}
-
-const UserInfo: React.FC<UserInfoProps> = () => {
+const UserInfo = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const {rxLoginInfo} = useSelector(
-    (state: any) => state.rxLoginInfo,
+    state => state.rxLoginInfo,
     (prev, next) => {
       return prev.rxLoginInfo === next.rxLoginInfo;
     },
   );
   const dispatch = useDispatch();
 
-  const [userName, setUserName] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
-  const [pw, setPw] = useState<string>('');
-  const [pwconfirm, setPwconfirm] = useState<string>('');
+  const [pw, setPw] = useState('');
+  const [pwconfirm, setPwconfirm] = useState('');
 
-  const [jibunaddress, setJibunaddress] = useState<string | boolean>(false);
-  const [roadaddress, setRoadaddress] = useState<string | boolean>(false);
-  const [addressdt, setAddressdt] = useState<string | boolean>(false);
-  const [add1, setAdd1] = useState<string | boolean>(false);
-  const [add2, setAdd2] = useState<string | boolean>(false);
-  const [add3, setAdd3] = useState<string | boolean>(false);
-  const [zip, setZip] = useState<string | boolean>(false);
+  const [jibunaddress, setJibunaddress] = useState(false);
+  const [roadaddress, setRoadaddress] = useState(false);
+  const [addressdt, setAddressdt] = useState(false);
+  const [add1, setAdd1] = useState(false);
+  const [add2, setAdd2] = useState(false);
+  const [add3, setAdd3] = useState(false);
+  const [zip, setZip] = useState(false);
 
-  const [easyYn, setEasyYn] = useState<string>('');
-  const [easyType, setEasyType] = useState<string>('');
-  const [uniqKey, setUniqKey] = useState<string>('');
+  const [easyYn, setEasyYn] = useState('');
+  const [easyType, setEasyType] = useState('');
+  const [uniqKey, setUniqKey] = useState('');
 
-  const [delivery_msg, setDelivery_msg] = useState<boolean | string>(false);
-  const [handphone, setHandphone] = useState<boolean | string>(false);
+  const [delivery_msg, setDelivery_msg] = useState(false);
+  const [handphone, setHandphone] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    let isFetched = false;
     async function fetchData() {
       setUserName(rxLoginInfo.name);
 
@@ -88,9 +87,28 @@ const UserInfo: React.FC<UserInfoProps> = () => {
       setLoading(false);
     }
     fetchData();
-  }, [rxLoginInfo]);
 
-  const _modalCb = useCallback((isOk: boolean, jData: any) => {
+    return () => {
+      isFetched = true;
+    };
+  }, [
+    rxLoginInfo.add1,
+    rxLoginInfo.add2,
+    rxLoginInfo.add3,
+    rxLoginInfo.delivery_msg,
+    rxLoginInfo.easy_type,
+    rxLoginInfo.easy_yn,
+    rxLoginInfo.email,
+    rxLoginInfo.handphone,
+    rxLoginInfo.jibun_address,
+    rxLoginInfo.name,
+    rxLoginInfo.road_address,
+    rxLoginInfo.road_address_dtl,
+    rxLoginInfo.uniq_key,
+    rxLoginInfo.zip,
+  ]);
+
+  const _modalCb = useCallback((isOk, jData) => {
     if (isOk) {
       setIsModalOpen(true);
     } else {
@@ -98,7 +116,7 @@ const UserInfo: React.FC<UserInfoProps> = () => {
     }
   }, []);
 
-  const _postCodeDialogToggle = useCallback((isOpen: boolean, data: any) => {
+  const _postCodeDialogToggle = useCallback((isOpen, data) => {
     setIsModalOpen(false);
 
     if (typeof data === 'object') {
@@ -125,33 +143,34 @@ const UserInfo: React.FC<UserInfoProps> = () => {
           text: '확인',
           onPress: () => {
             dispatch(allActions.logOut());
-            // MyAsyncStorage._writeAsyncStorage(Config.AS_KEY_LOGIN_INFO, null); // 필요한 경우 해당 부분도 타입 정의 추가
-            // navigation.replace('MainScreen'); // 필요한 경우 해당 부분도 타입 정의 추가
+            MyAsyncStorage._writeAsyncStorage(Config.AS_KEY_LOGIN_INFO, null);
+
+            navigation.replace('MainScreen');
             Alert.alert('', '로그아웃 하였습니다.');
           },
         },
       ],
       {cancelable: false},
     );
-  }, [dispatch]);
+  }, [dispatch, navigation]);
 
   const _infoUpdate = useCallback(
     async (
-      rxLoginInfo: any,
-      roadaddress: string | boolean,
-      jibunaddress: string | boolean,
-      addressdt: string | boolean,
-      add1: string | boolean,
-      add2: string | boolean,
-      add3: string | boolean,
-      zip: string | boolean,
-      delivery_msg: boolean | string,
-      handphone: boolean | string,
-      pw: string,
-      pwconfirm: string,
-      easyYn: string,
-      easyType: string,
-      uniqKey: string,
+      rxLoginInfo,
+      roadaddress,
+      jibunaddress,
+      addressdt,
+      add1,
+      add2,
+      add3,
+      zip,
+      delivery_msg,
+      handphone,
+      pw,
+      pwconfirm,
+      easyYn,
+      easyType,
+      uniqKey,
     ) => {
       if (pw !== pwconfirm) {
         return Alert.alert('', '비밀번호와 비밀번호 확인이 동일하지 않습니다!');
@@ -163,16 +182,16 @@ const UserInfo: React.FC<UserInfoProps> = () => {
           } else {
             const result = await ServerApi.m_appinfou(
               String(rxLoginInfo.u_id),
-              roadaddress as string,
-              addressdt as string,
-              jibunaddress as string,
-              addressdt as string,
-              add1 as string,
-              add2 as string,
-              add3 as string,
-              zip as string,
-              delivery_msg as string,
-              handphone as string,
+              roadaddress,
+              addressdt,
+              jibunaddress,
+              addressdt,
+              add1,
+              add2,
+              add3,
+              zip,
+              delivery_msg,
+              handphone,
               String(pw),
             );
             if (
@@ -230,16 +249,16 @@ const UserInfo: React.FC<UserInfoProps> = () => {
 
           const result = await ServerApi.m_appinfou(
             String(rxLoginInfo.u_id),
-            roadaddress as string,
-            addressdt as string,
-            jibunaddress as string,
-            addressdt as string,
-            add1 as string,
-            add2 as string,
-            add3 as string,
-            zip as string,
-            delivery_msg as string,
-            handphone as string,
+            roadaddress,
+            addressdt,
+            jibunaddress,
+            addressdt,
+            add1,
+            add2,
+            add3,
+            zip,
+            delivery_msg,
+            handphone,
             String(loginInfo.userPw),
           );
           if (
@@ -363,9 +382,7 @@ const UserInfo: React.FC<UserInfoProps> = () => {
                   paddingRight: Layout.window.GapLvVI,
                 }}
                 onPress={() => {
-                  navigation.navigate('OrderList', {
-                    name: '주문 내역',
-                  });
+                  navigation.navigate('OrderList', {name: '주문 내역'});
                 }}>
                 <View
                   style={{
@@ -545,7 +562,7 @@ const UserInfo: React.FC<UserInfoProps> = () => {
                     style={styles.txtInfoInput}
                     autoCapitalize="none"
                     placeholder={'상세주소를 입력해주세요'}
-                    value={String(addressdt)}
+                    value={addressdt}
                     onChangeText={text => setAddressdt(text)}
                   />
                 </View>
@@ -564,7 +581,7 @@ const UserInfo: React.FC<UserInfoProps> = () => {
                     style={styles.txtInfoInput}
                     autoCapitalize="none"
                     placeholder={'요청사항을 입력해주세요'}
-                    value={String(delivery_msg)}
+                    value={delivery_msg}
                     onChangeText={text => setDelivery_msg(text)}
                   />
                 </View>
@@ -584,7 +601,7 @@ const UserInfo: React.FC<UserInfoProps> = () => {
                     keyboardType="numeric"
                     autoCapitalize="none"
                     placeholder={'"-"제외한 숫자만 입력해주세요"'}
-                    value={String(handphone)}
+                    value={handphone}
                     onChangeText={text => setHandphone(text)}
                   />
                 </View>
@@ -685,7 +702,7 @@ const styles = StyleSheet.create({
     fontSize: Layout.fsM,
     color: Colors.defaultText,
     fontWeight: 'bold',
-    paddingTop: -10, // 이 부분에 대한 수정이 필요할 수 있습니다. 음수 paddingTop은 적용되지 않을 수 있습니다.
+    paddingTop: -10,
     marginLeft: 16,
   },
   txtInfoNameWritten: {

@@ -16,7 +16,6 @@ import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import * as ServerApi from '../../constants/ServerApi';
 import * as MyUtil from '../../constants/MyUtil';
-import Config from '../../constants/Config';
 import ModalBottomAlertDetail from '../../components/ModalBottomAlertDetail';
 
 const AlertMsg = () => {
@@ -131,8 +130,8 @@ const AlertMsg = () => {
                         <Image
                           source={require('../../img/circle_notice.png')}
                           style={{
-                            width: (Layout.window.width * 1) / 5,
-                            height: (Layout.window.width * 1) / 5,
+                            width: Layout.window.width / 5,
+                            height: Layout.window.width / 5,
                             marginTop: 2,
                           }}
                           resizeMode="contain"

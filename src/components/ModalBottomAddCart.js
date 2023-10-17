@@ -4,23 +4,16 @@ import Modal from 'react-native-modal';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-interface ModalBottomMainToLoginProps {
-  _modalCb: (open: boolean, data?: any) => void;
-  _modalCbToLogin: (open: boolean, data?: any) => void;
-  isModalOpen: boolean;
-  clickedbtn: string;
-}
-
-export default class ModalBottomMainToLogin extends React.Component<ModalBottomMainToLoginProps> {
+export default class ModalBottomAddCart extends React.Component {
   render() {
-    const {_modalCb, _modalCbToLogin, isModalOpen, clickedbtn} = this.props;
+    const {_modalCb, isModalOpen, _modalCbToCart} = this.props;
 
     return (
       <Modal
         testID={'modal'}
         isVisible={isModalOpen}
         swipeDirection={['down']}
-        onSwipeComplete={() => {
+        onSwipeComplete={({swipingDirection}) => {
           _modalCb(false, {});
         }}
         style={styles.view}
@@ -40,35 +33,17 @@ export default class ModalBottomMainToLogin extends React.Component<ModalBottomM
             alignItems: 'center',
             overflow: 'hidden',
           }}>
-          <View
-            style={{
-              flexDirection: 'column',
-              width: Layout.window.width,
-              alignItems: 'center',
-              borderBottomWidth: 1,
-              borderBottomColor: 'lightgrey',
-            }}>
+          <View style={{width: Layout.window.width, alignItems: 'center'}}>
             <Text
               allowFontScaling={false}
               style={{
                 fontSize: Layout.fsL,
-                color: 'black',
+                color: Colors.baseTextGray,
                 marginTop: 20,
-                marginBottom: 5,
+                marginBottom: 15,
                 fontWeight: 'bold',
               }}>
-              {clickedbtn} 회원가입후 이용가능합니다.
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={{
-                fontSize: Layout.fsL,
-                color: 'black',
-                marginTop: 5,
-                marginBottom: 20,
-                fontWeight: 'bold',
-              }}>
-              회원가입 하시겠습니까
+              장바구니에 담겼습니다.{'\n'}지금 확인하시겠습니까?
             </Text>
           </View>
 
@@ -81,19 +56,17 @@ export default class ModalBottomMainToLogin extends React.Component<ModalBottomM
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderRightColor: 'lightgrey',
-                borderRightWidth: 1,
                 height: Layout.window.GapLvIV,
               }}>
               <Text
                 allowFontScaling={false}
                 style={{fontSize: Layout.fsM, color: Colors.baseTextGray}}>
-                나중에
+                취소
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                _modalCbToLogin(false, {});
+                _modalCbToCart(false, {});
               }}
               style={{
                 flex: 1,
@@ -108,7 +81,7 @@ export default class ModalBottomMainToLogin extends React.Component<ModalBottomM
                   fontWeight: 'bold',
                   color: 'black',
                 }}>
-                예
+                확인
               </Text>
             </TouchableOpacity>
           </View>
