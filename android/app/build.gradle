@@ -83,12 +83,25 @@ android {
         multiDexEnabled true
     }
     signingConfigs {
+//        debug {
+//            storeFile file('your_key_name.keystore')
+//            storePassword 'android'
+//            keyAlias 'androiddebugkey'
+//            keyPassword 'android'
+//        }
+        release {
+            storeFile file('your_key_name.keystore')
+            storePassword 'rnluxxmall1234'
+            keyAlias 'your_key_alias'
+            keyPassword 'rnluxxmall1234'
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+
     }
     buildTypes {
         debug {

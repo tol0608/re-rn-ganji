@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {
   StyleSheet,
   View,
@@ -18,7 +17,6 @@ const Cart = ({item, _btnHandler, _delHandler, uid}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      {/* <View style={{ width: Layout.window.width * 0.9 }}> */}
       <View
         key={item.order_temp_no}
         style={{flexDirection: 'row', marginBottom: 20}}>

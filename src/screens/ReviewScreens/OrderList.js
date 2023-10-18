@@ -284,24 +284,20 @@ const styles = StyleSheet.create({
   orderListDate: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
     marginLeft: 7,
   },
   scrollNotiList: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
   txtItemName: {
     fontSize: Layout.fsL,
     color: 'black',
-    //color: Colors.baseTextGray,
     fontWeight: 'bold',
   },
   txtOptionNm: {
     fontSize: Layout.fsS,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
   txtItemPrice: {
     fontSize: Layout.fsL,
@@ -312,7 +308,6 @@ const styles = StyleSheet.create({
   reviewContents: {
     fontSize: Layout.fsM,
     color: 'black',
-    //color: Colors.baseTextGray,
   },
   imgProductOrderList: {
     borderRadius: 10,

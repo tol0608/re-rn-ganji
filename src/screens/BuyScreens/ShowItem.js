@@ -452,7 +452,7 @@ const ShowItem = ({route}) => {
     return totalPrice;
   }, []);
 
-  const _renderItem = useCallback(({item, index}) => {
+  function _renderItem({item}) {
     const imgSrc = {
       uri:
         Config.TITLEIMG_URL + item.file_nm + '?version=' + new Date().getTime(),
@@ -460,25 +460,19 @@ const ShowItem = ({route}) => {
 
     return (
       <TouchableOpacity
-        style={{width: Layout.window.width, height: Layout.window.height}}
-        key={index}
-        activeOpacity={1}
-        onPress={() => {}}>
-        <View
-          style={{width: Layout.window.width, height: Layout.window.height}}>
-          {/* <Image
-                        style={{ width: Layout.window.width, height: Layout.window.width }}
-                        source={imgSrc}
-                        resizeMode='cover' /> */}
+        style={styles.container}
+        key={item.id}
+        activeOpacity={1}>
+        <View style={styles.container}>
           <FastImage
-            style={{width: Layout.window.width, height: Layout.window.height}}
+            style={styles.image}
             source={imgSrc}
             resizeMode={FastImage.resizeMode.cover}
           />
         </View>
       </TouchableOpacity>
     );
-  }, []);
+  }
 
   return (
     <SafeAreaView style={{flex: 1, width: Layout.window.width}}>
@@ -498,7 +492,6 @@ const ShowItem = ({route}) => {
             }}>
             <View style={styles.viewTopBar}>
               <View style={styles.viewTopBarLeft}>
-                {/* <TouchableOpacity onPress={() => { navigation.navigate('MainScreen', { fromPage:"ShowItem" })}}> */}
                 <TouchableOpacity
                   onPress={() => {
                     navigation.reset({
@@ -820,27 +813,10 @@ const ShowItem = ({route}) => {
                 paddingTop: 15,
               }}>
               <HTML
-                html={arrDatadt.contents}
+                key={HTML}
+                source={{html: arrDatadt.contents}}
                 contentWidth={Layout.window.width - 20}
                 imagesMaxWidth={Layout.window.width - 20}
-                imagesInitialDimensions={{width: Layout.window.width - 20}}
-                renderers={{
-                  img: htmlAttribs => {
-                    return (
-                      <FastImage
-                        style={{
-                          width: Layout.window.width - 20,
-                          height: Layout.window.width - 20,
-                        }}
-                        source={{
-                          uri: htmlAttribs.src,
-                          priority: FastImage.priority.high,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                      />
-                    );
-                  },
-                }}
               />
             </View>
 
@@ -1049,12 +1025,12 @@ const styles = StyleSheet.create({
   },
   imgProductTop: {
     width: Layout.window.width,
-    height: undefined,
+    height: Layout.window.width,
     aspectRatio: 1,
   },
   imgProductMid: {
     width: Layout.window.width,
-    height: undefined,
+    height: Layout.window.width,
     aspectRatio: 1,
   },
   imgReviewStar: {
@@ -1099,6 +1075,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
     paddingRight: 10,
+  },
+  container: {
+    width: Layout.window.width,
+    height: Layout.window.height,
+  },
+  image: {
+    width: Layout.window.width,
+    height: Layout.window.height,
   },
 });
 

@@ -1,4 +1,5 @@
 const SERVER_URL = 'http://deuxisttt.cafe24.com/';
+// const SERVER_URL = 'http://118.38.38.162:8080/'; // 팀장님 링크
 
 const AppConfig = {
   // 이미지 상품 URL
